@@ -1,0 +1,38 @@
+%%MatrixMarket matrix coordinate real general
+%-------------------------------------------------------------------------------
+% UF Sparse Matrix Collection, Tim Davis
+% http://www.cise.ufl.edu/research/sparse/matrices/HB/jgl009
+% name: HB/jgl009
+% [U JOHN G. LEWIS P4 COUNTEREXAMPLE WHICH REQUIRES FILL IN SPIKES]
+% id: 185
+% date: 1983
+% author: J. Lewis
+% ed: I. Duff, R. Grimes, J. Lewis
+% fields: title A name id date author ed kind
+% kind: counter-example problem
+%-------------------------------------------------------------------------------
+8 8 24
+1 1 0.1243
+4 1 0.6753
+2 2 0.9434
+6 2 0.4324
+2 3 112.3537
+3 3 0.3234
+8 3 3.2489
+2 4 137.2495
+3 4 128.3293
+4 4 1.4334
+6 4 4.9242
+1 5 124.7839
+2 5 194.2932
+4 5 137.3242
+5 5 5.2133
+7 5 4.5359
+4 6 183.3822
+6 6 3.4342
+7 6 2.2138
+1 7 167.2937
+5 7 147.2304
+7 7 2.6546
+6 8 129.3231
+8 8 4.3865
