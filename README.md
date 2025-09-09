@@ -5,12 +5,62 @@ Sparse Triangular Solver (SpTRSV) is a major bottleneck in scientific computatio
 
 ## In a Nutshell
 
-* The basic idea of a triangular solver is found under the terms of “forward substitution” and “backward substitution” in the literature. The process of solving a set of linear algebraic equations in the form of $Lx=y$, where $L$ is a lower triangular matrix is called forward substitution.
+* The basic idea of a triangular solver is found under the terms “forward substitution” and “backward substitution” in the literature. The process of solving a set of linear algebraic equations in the form of $Lx = y$, where $L$ is a lower triangular matrix, is called forward substitution.
 
-* The Directed Acyclic Graph can be used to visualize the dependencies of the rows of the triangle.
+<div align="center">
+<table>
+  <tr>
+    <td align="center">
+      <img src="images/FWD_substitute.jpg" alt="FWD_substitute" width="600"/><br>
+    </td>
+  </tr>
+</table>
+</div>
 
-* We propose a single processing elements (PE) as shown below, which is equipped with all the computation units that are required to perform SpTRSV computation. Also, since we have multiple multiplication units inside the PE, we utilize the parallelism within the row (i.e., non-zero values inside the row) in our PE.
+* A Directed Acyclic Graph can be used to visualize the dependencies among the rows of the triangle.
 
-* We can further extend multiple PEs into processing element group (PEG) as follows to further distribute the parallelism within a row.
+<div align="center">
+<table>
+  <tr>
+    <td align="center">
+      <img src="images/DAG.jpg" alt="DAG" width="600"/><br>
+    </td>
+  </tr>
+</table>
+</div>
 
-* We allocate different rows in a level to different PEGs to process in parallel (i.e., row parallelism). However, it is necessary to have every PEGs to be updated with all the newly solved xi values before moving to the next level. Since all to all broadcasting is very costly in FPGAs, we can use the ring communication method to broadcast data to all the PEGs as shown in the following figure.
+* A **processing element (PE)** is proposed, as shown below, which is equipped with all the computation units required to perform SpTRSV computation. Since multiple multiplication units are included inside the PE, parallelism within a row (i.e., non-zero values inside the row) is utilized in the PE.
+
+<div align="center">
+<table>
+  <tr>
+    <td align="center">
+      <img src="images/singlePE.jpg" alt="singlePE" width="600"/><br>
+    </td>
+  </tr>
+</table>
+</div>
+
+* A PE can be further extended into a **processing element group (PEG)** to distribute the parallelism within a row more effectively.
+
+<div align="center">
+<table>
+  <tr>
+    <td align="center">
+      <img src="images/PEG.jpg" alt="PEG" width="600"/><br>
+    </td>
+  </tr>
+</table>
+</div>
+
+* Different rows in a level can be allocated to different PEGs for parallel processing (i.e., row parallelism). However, it is necessary for every PEG to be updated with all the newly solved $x_i$ values before moving to the next level. Since all-to-all broadcasting is very costly in FPGAs, the ring communication method can be used to broadcast data to all PEGs, as shown in the following figure.
+
+<div align="center">
+<table>
+  <tr>
+    <td align="center">
+      <img src="images/RingCommunication.jpg" alt="RingCommunication" width="600"/><br>
+    </td>
+  </tr>
+</table>
+</div>
